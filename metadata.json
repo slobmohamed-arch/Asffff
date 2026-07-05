@@ -1,0 +1,6 @@
+{
+  "name": "دائرة شؤون موظفي هيئة الإعلام",
+  "description": "نظام بوابة الموظفين الرقمية لهيئة الإعلام والاتصالات العراقية، يتضمن لوحة تحكم مخصصة للموظف وواجهة ترحيبية احترافية مع نظام تفعيل آمن.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
