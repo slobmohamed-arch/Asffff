@@ -5,7 +5,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/Asffff/', // تم إضافة هذا السطر ليعمل الرابط بشكل صحيح على GitHub Pages
+    base: '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
