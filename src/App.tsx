@@ -25,7 +25,10 @@ import {
   Check,
   X,
   Mail,
-  Headphones
+  Headphones,
+  LogOut,
+  Newspaper,
+  BookOpen
 } from "lucide-react";
 
 // الشعار الرسمي العراقي الذي تم توليده
@@ -40,6 +43,16 @@ export default function App() {
   const [badgeActive, setBadgeActive] = useState(false); // حالة الشارة الخضراء
   const [currentTime, setCurrentTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
+
+  // حالات تسجيل الدخول وصلاحيات الموظف الجديدة
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginMode, setLoginMode] = useState<"select" | "employee_code" | "citizen_postal">("select");
+  const [loginCode, setLoginCode] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [selectedEmployee, setSelectedEmployee] = useState<"mohammed" | "abdullah">("mohammed");
+  const [citizenError, setCitizenError] = useState(false);
+  const [citizenPostalCode, setCitizenPostalCode] = useState("");
+  const [citizenErrorMsg, setCitizenErrorMsg] = useState("");
 
   // التحقق من حالة الشارة في localStorage عند التشغيل الأول
   useEffect(() => {
@@ -107,7 +120,7 @@ export default function App() {
       return;
     }
 
-    if (codeInput === "Gtasen1122") {
+    if (codeInput === "Gtasen1122" || codeInput === "Gtasen0909") {
       // كود صحيح: تفعيل أو إخفاء الشارة
       const newBadgeState = !badgeActive;
       setBadgeActive(newBadgeState);
@@ -240,8 +253,212 @@ export default function App() {
         )}
       </AnimatePresence>
 
+      {/* صفحة تسجيل الدخول الأمنية */}
+      {!showSplash && !isLoggedIn && (
+        <div className="flex-1 flex items-center justify-center p-6 bg-gradient-to-b from-slate-950 via-[#0a121c] to-slate-950 min-h-screen relative overflow-hidden w-full">
+          {/* زخارف أمنية مائية */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+            <img
+              src={iraqiEmblem}
+              alt="شعار مائي"
+              className="w-[500px] h-[500px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 object-contain"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="w-full max-w-md bg-gradient-to-br from-slate-900 via-[#0d1622] to-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative z-10"
+            dir="rtl"
+          >
+            {/* زخرفة الزوايا الذهبية */}
+            <div className="absolute top-0 right-0 w-16 h-[1px] bg-amber-500/30"></div>
+            <div className="absolute top-0 right-0 h-16 w-[1px] bg-amber-500/30"></div>
+            <div className="absolute bottom-0 left-0 w-16 h-[1px] bg-amber-500/30"></div>
+            <div className="absolute bottom-0 left-0 h-16 w-[1px] bg-amber-500/30"></div>
+
+            {/* الهيدر الأمني للوجين */}
+            <div className="flex flex-col items-center text-center space-y-4 mb-8">
+              <img
+                src={iraqiEmblem}
+                alt="شعار جمهورية العراق"
+                className="w-20 h-20 object-cover rounded-full border border-amber-500/30 p-1 bg-slate-950 shadow-md"
+                referrerPolicy="no-referrer"
+              />
+              <div>
+                <h2 className="text-xl font-extrabold text-amber-400">بوابة الأفراد الأمنية الموحدة</h2>
+                <p className="text-xs text-slate-400 mt-1">جمهورية العراق - هيئة الإعلام والاتصالات</p>
+              </div>
+            </div>
+
+            {loginMode === "select" ? (
+              <div className="space-y-4">
+                <button
+                  onClick={() => {
+                    setLoginMode("employee_code");
+                    setLoginError("");
+                    setCitizenError(false);
+                  }}
+                  className="w-full py-4 px-6 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-sm rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20 active:scale-[0.98] cursor-pointer flex items-center justify-between"
+                >
+                  <span className="flex items-center gap-3">
+                    <User className="w-5 h-5 shrink-0" />
+                    <span>تسجيل الدخول كموظف رسمي</span>
+                  </span>
+                  <CheckCircle2 className="w-5 h-5" />
+                </button>
+
+                <button
+                  onClick={() => {
+                    setLoginMode("citizen_postal");
+                    setCitizenPostalCode("");
+                    setCitizenErrorMsg("");
+                  }}
+                  className="w-full py-4 px-6 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/30 text-slate-300 font-bold text-sm rounded-xl transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-between"
+                >
+                  <span className="flex items-center gap-3">
+                    <Building2 className="w-5 h-5 shrink-0 text-slate-400" />
+                    <span>تسجيل الدخول كمواطن</span>
+                  </span>
+                  <Compass className="w-5 h-5 text-slate-500" />
+                </button>
+              </div>
+            ) : loginMode === "employee_code" ? (
+              <div className="space-y-5">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-300 block text-right pr-1">
+                    اكتب كود الوزارة للدخول
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={loginCode}
+                      onChange={(e) => {
+                        setLoginCode(e.target.value);
+                        setLoginError("");
+                      }}
+                      placeholder="Gtasen••••"
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/50 rounded-xl py-3.5 px-4 text-center font-mono font-bold tracking-widest text-amber-400 text-sm focus:outline-none transition-all duration-300 placeholder-slate-700 shadow-inner"
+                      dir="ltr"
+                    />
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
+                  </div>
+                </div>
+
+                {loginError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-3 bg-red-500/10 border border-red-500/30 text-red-400 text-xs rounded-xl leading-relaxed text-right flex items-center gap-2"
+                  >
+                    <X className="w-4 h-4 shrink-0" />
+                    <span>{loginError}</span>
+                  </motion.div>
+                )}
+
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => {
+                      setLoginMode("select");
+                      setLoginCode("");
+                      setLoginError("");
+                    }}
+                    className="flex-1 py-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 font-bold text-xs rounded-xl transition-all duration-300 cursor-pointer"
+                  >
+                    العودة للخلف
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      if (loginCode === "Gtasen1122") {
+                        setSelectedEmployee("mohammed");
+                        setIsLoggedIn(true);
+                      } else if (loginCode === "Gtasen0909") {
+                        setSelectedEmployee("abdullah");
+                        setIsLoggedIn(true);
+                      } else {
+                        setLoginError("الكود المدخل غير صحيح، يرجى التأكد من الكود الوزاري.");
+                      }
+                    }}
+                    className="flex-[2] py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20 active:scale-[0.98] cursor-pointer"
+                  >
+                    دخول النظام والتحقق
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-5">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-300 block text-right pr-1">
+                    يرجى إدخال الرمز البريدي لعائلتك للتحقق
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={citizenPostalCode}
+                      onChange={(e) => {
+                        setCitizenPostalCode(e.target.value);
+                        setCitizenErrorMsg("");
+                      }}
+                      placeholder="أدخل الرمز البريدي هنا (مثال: 10011)"
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/50 rounded-xl py-3.5 px-4 text-center font-bold tracking-wider text-amber-400 text-sm focus:outline-none transition-all duration-300 placeholder-slate-700 shadow-inner"
+                      dir="rtl"
+                    />
+                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
+                  </div>
+                </div>
+
+                {citizenErrorMsg && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 bg-red-500/10 border border-red-500/30 text-red-400 text-xs rounded-xl leading-relaxed text-right flex items-start gap-2.5"
+                  >
+                    <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5 text-red-500 animate-pulse" />
+                    <span>{citizenErrorMsg}</span>
+                  </motion.div>
+                )}
+
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => {
+                      setLoginMode("select");
+                      setCitizenPostalCode("");
+                      setCitizenErrorMsg("");
+                    }}
+                    className="flex-1 py-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 font-bold text-xs rounded-xl transition-all duration-300 cursor-pointer"
+                  >
+                    العودة للخلف
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      if (!citizenPostalCode.trim()) {
+                        setCitizenErrorMsg("يرجى إدخال الرمز البريدي لعائلتك أولاً للتحقق.");
+                      } else {
+                        setCitizenErrorMsg("بياناتك خاطئة");
+                      }
+                    }}
+                    className="flex-[2] py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20 active:scale-[0.98] cursor-pointer"
+                  >
+                    تم
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div className="mt-8 pt-4 border-t border-slate-900 text-center text-[10px] text-slate-500 font-mono tracking-widest">
+              SECURE AUTHORIZATION SYSTEM v2.7
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       {/* الجزء الثاني والثالث: واجهة المستخدم الرئيسية (Dashboard) */}
-      <div className="flex-1 flex flex-col relative">
+      {!showSplash && isLoggedIn && (
+        <div className="flex-1 flex flex-col relative">
         {/* خلفية وطنية معتدلة فخمة */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.02]">
           <img
@@ -290,8 +507,24 @@ export default function App() {
               </div>
             </div>
 
-            {/* زر التفعيل السري في زاوية الهيدر - زر دائري أحمر */}
-            <div className="flex items-center">
+            {/* أزرار التحكم والزر السري وتسجيل الخروج */}
+            <div className="flex items-center gap-3">
+              {/* زر تسجيل الخروج الفاخر */}
+              <button
+                onClick={() => {
+                  setIsLoggedIn(false);
+                  setLoginMode("select");
+                  setLoginCode("");
+                  setLoginError("");
+                  setCitizenPostalCode("");
+                  setCitizenErrorMsg("");
+                }}
+                className="px-4 py-2 bg-red-500/10 hover:bg-red-500 hover:text-slate-950 border border-red-500/30 text-red-400 hover:border-red-400 font-bold text-xs rounded-xl transition-all duration-300 cursor-pointer flex items-center gap-1.5 shadow-lg shadow-red-950/20 active:scale-95"
+              >
+                <span>تسجيل الخروج</span>
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
+
               <div className="relative group">
                 <button
                   onClick={handleSecretToggle}
@@ -406,7 +639,7 @@ export default function App() {
                   <span className="text-xs text-slate-500 font-bold tracking-wider block mb-1">الاسم الكامل للموظف</span>
                   <h1 className="text-2xl font-black text-white tracking-wide border-b border-slate-800 pb-2 flex items-center justify-center sm:justify-start gap-2">
                     <span className="h-2.5 w-2.5 rounded-full bg-amber-500 shrink-0"></span>
-                    <span>محمد حمزة عباس</span>
+                    <span>{selectedEmployee === "mohammed" ? "محمد حمزة عباس" : "عبد الله حيدر عباس"}</span>
                   </h1>
                 </div>
 
@@ -477,7 +710,9 @@ export default function App() {
                       <span className="font-medium text-xs">الرسوم المتبقية</span>
                     </div>
                     <span className="font-semibold text-amber-500 text-xs sm:text-sm text-right leading-relaxed max-w-xs">
-                      الرسوم المتبقية هي 60.000 دينار ثمن تثبيت العقد عند اطلاق القرار \ وثمن مستحقات الضرائب العراقية \
+                      {selectedEmployee === "mohammed" 
+                        ? "الرسوم المتبقية هي 60.000 دينار ثمن تثبيت العقد عند اطلاق القرار \\ وثمن مستحقات الضرائب العراقية \\" 
+                        : "الرسوم المتبقية هي 75.000 دينار عراقي"}
                     </span>
                   </div>
 
@@ -538,6 +773,59 @@ export default function App() {
               </div>
             </div>
 
+          </motion.div>
+
+          {/* قسم معلومات عن هيئة الصحافة والإعلام العراقية */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="w-full max-w-xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800/80 rounded-2xl p-6 shadow-xl relative overflow-hidden"
+            dir="rtl"
+          >
+            {/* لمعة مائية تزيينية */}
+            <div className="absolute top-0 left-0 w-32 h-32 bg-amber-500/5 rounded-br-full pointer-events-none"></div>
+            
+            <div className="flex items-center gap-3 border-b border-slate-800 pb-4 mb-4">
+              <div className="h-9 w-9 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500">
+                <Newspaper className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-sm font-black text-white">دليل هيئة الصحافة والإعلام العراقية</h3>
+                <p className="text-[10px] text-slate-500 font-mono">IRAQI PRESS & MEDIA COMMISSION INFO</p>
+              </div>
+            </div>
+
+            <div className="space-y-3.5 text-xs text-slate-300 leading-relaxed">
+              <p>
+                تعتبر <strong className="text-amber-400">هيئة الصحافة والإعلام العراقية</strong> الجهة التنظيمية والرقابية المستقلة المعنية بتنظيم وتطوير قطاعي الإعلام والاتصالات في جمهورية العراق وفقاً للدستور والقوانين الاتحادية النافذة.
+              </p>
+              
+              <div className="grid grid-cols-1 gap-3.5 mt-2">
+                <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-900 flex gap-2.5">
+                  <BookOpen className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold text-slate-200 block mb-1">الرؤية والرسالة الإستراتيجية</span>
+                    <span className="text-slate-400 text-[11px]">
+                      بناء بيئة إعلامية حرة، مهنية ومسؤولة تدعم حرية التعبير وتلتزم بالمعايير الأخلاقية والمصداقية الصحفية، مع حماية أمن واقتصاد وسيادة الدولة الرقمية.
+                    </span>
+                  </div>
+                </div>
+
+                <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-900 flex gap-2.5">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold text-slate-200 block mb-1">المهام والمسؤوليات الرئيسية</span>
+                    <ul className="list-disc list-inside text-slate-400 text-[11px] space-y-1 pr-1 leading-relaxed">
+                      <li>إصدار وتجديد تراخيص العمل لكافة المؤسسات الصحفية والقنوات الإعلامية في العراق.</li>
+                      <li>مراقبة الالتزام بلائحة قواعد البث الإعلامي ونشر الأخبار الوطنية بدقة ومصداقية.</li>
+                      <li>تنسيق الشراكات الإقليمية والدولية لدعم وتدريب الكوادر الصحفية والتقنية العراقية.</li>
+                      <li>توفير الحماية القانونية والتسهيلات اللوجستية للأفراد الحاصلين على الهويات الأمنية المعتمدة.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
 
           {/* زر خدمة العملاء */}
@@ -607,10 +895,11 @@ export default function App() {
           </div>
         </footer>
       </div>
+      )}
 
       {/* التنبيه المنبثق عند دخول واجهة المستخدم */}
       <AnimatePresence>
-        {!showSplash && showAnnouncement && (
+        {!showSplash && isLoggedIn && showAnnouncement && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
