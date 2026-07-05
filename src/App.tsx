@@ -33,6 +33,7 @@ import iraqiEmblem from "./assets/images/iraqi_emblem_1783255000000.jpg";
 export default function App() {
   // الحالات البرمجية الخاصة بالواجهة الترحيبية والتطبيق
   const [showSplash, setShowSplash] = useState(true);
+  const [showAnnouncement, setShowAnnouncement] = useState(true);
   const [time, setTime] = useState(0); // العداد العشري (من 0 إلى 150 جزء من الثانية)
   const [badgeActive, setBadgeActive] = useState(false); // حالة الشارة الخضراء
   const [currentTime, setCurrentTime] = useState("");
@@ -426,6 +427,68 @@ export default function App() {
                     <span className="font-semibold text-slate-200">صلاح الدين - قضاء بلد</span>
                   </div>
 
+                  <div className="flex justify-between items-center py-1.5 border-b border-slate-800/40">
+                    <div className="flex items-center gap-2 text-slate-400">
+                      <User className="w-4 h-4 text-slate-500" />
+                      <span className="font-medium text-xs">اسم القبيلة</span>
+                    </div>
+                    <span className="font-semibold text-slate-200">الكمراوي</span>
+                  </div>
+
+                  <div className="flex justify-between items-center py-1.5 border-b border-slate-800/40">
+                    <div className="flex items-center gap-2 text-slate-400">
+                      <FileText className="w-4 h-4 text-slate-500" />
+                      <span className="font-medium text-xs">الشهادة المستحصلة</span>
+                    </div>
+                    <span className="font-semibold text-slate-200">غير متخرج . كاسب</span>
+                  </div>
+
+                  <div className="flex justify-between items-center py-1.5 border-b border-slate-800/40">
+                    <div className="flex items-center gap-2 text-slate-400">
+                      <Building2 className="w-4 h-4 text-slate-500" />
+                      <span className="font-medium text-xs">الوظيفة داخل الدائرة</span>
+                    </div>
+                    <span className="font-semibold text-slate-200">مسؤول استقبال ملفات صادرة و واردة</span>
+                  </div>
+
+                  <div className="flex justify-between items-center py-1.5 border-b border-slate-800/40">
+                    <div className="flex items-center gap-2 text-slate-400">
+                      <FileSpreadsheet className="w-4 h-4 text-slate-500" />
+                      <span className="font-medium text-xs">الراتب الشهري</span>
+                    </div>
+                    <span className="font-semibold text-slate-200">600,000 – 650,000 دينار عراقي لا غير</span>
+                  </div>
+
+                  <div className="flex justify-between items-center py-1.5 border-b border-slate-800/40">
+                    <div className="flex items-center gap-2 text-slate-400">
+                      <Lock className="w-4 h-4 text-amber-500" />
+                      <span className="font-medium text-xs text-amber-400">رقم البند الفيدرالي</span>
+                    </div>
+                    <span className="font-mono text-sm font-extrabold tracking-widest text-amber-400 bg-slate-950 px-2.5 py-1 rounded border border-amber-500/20 shadow-inner">
+                      08026173401
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-1.5 border-b border-slate-800/40 gap-1">
+                    <div className="flex items-center gap-2 text-slate-400">
+                      <FileSpreadsheet className="w-4 h-4 text-slate-500" />
+                      <span className="font-medium text-xs">الرسوم المتبقية</span>
+                    </div>
+                    <span className="font-semibold text-amber-500 text-xs sm:text-sm text-right leading-relaxed max-w-xs">
+                      الرسوم المتبقية هي 60.000 دينار ثمن تثبيت العقد عند اطلاق القرار \ وثمن مستحقات الضرائب العراقية \
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-1.5 border-b border-slate-800/40 gap-1">
+                    <div className="flex items-center gap-2 text-slate-400">
+                      <ShieldCheck className="w-4 h-4 text-slate-500" />
+                      <span className="font-medium text-xs">الجهة المصدرة لقرار المباشرة</span>
+                    </div>
+                    <span className="font-semibold text-slate-200 text-xs sm:text-sm text-right leading-relaxed max-w-xs">
+                      دائرة شؤون اعلام صلاح الدين الالكتروني \ وزارة الاعلام العراقية
+                    </span>
+                  </div>
+
                   {/* الحالة التوظيفية تحت القرار بلون برتقالي أو أحمر لتمييزها */}
                   <div className="flex justify-between items-center py-2">
                     <div className="flex items-center gap-2 text-slate-400">
@@ -514,6 +577,75 @@ export default function App() {
           </div>
         </footer>
       </div>
+
+      {/* التنبيه المنبثق عند دخول واجهة المستخدم */}
+      <AnimatePresence>
+        {!showSplash && showAnnouncement && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="w-full max-w-lg bg-gradient-to-br from-slate-900 via-[#0d1520] to-slate-950 border border-amber-500/30 rounded-2xl shadow-2xl overflow-hidden relative"
+              dir="rtl"
+            >
+              {/* زخرفة وتأثيرات بصرية بأسلوب البينتو */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-bl-full pointer-events-none"></div>
+              <div className="absolute -top-12 -left-12 w-24 h-24 bg-amber-500/10 rounded-full blur-xl pointer-events-none"></div>
+
+              {/* ترويسة التنبيه */}
+              <div className="px-6 py-5 bg-slate-950/60 border-b border-slate-800/80 flex items-center gap-3">
+                <div className="h-9 w-9 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 animate-pulse">
+                  <Bell className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-amber-400">تنبيه إداري رسمي</h3>
+                  <p className="text-[10px] text-slate-400 font-mono">OFFICIAL ANNOUNCEMENT</p>
+                </div>
+              </div>
+
+              {/* محتوى التنبيه */}
+              <div className="p-6 md:p-8 space-y-6">
+                <div className="space-y-3">
+                  <h4 className="text-lg font-bold text-white border-r-4 border-amber-500 pr-3 leading-relaxed">
+                    دائرة شؤون موظفي الإعلام
+                  </h4>
+                  <p className="text-sm text-slate-300 leading-relaxed font-medium text-justify">
+                    استناداً لتوجيهات الأستاذ الدكتور علي حسن الشمري تم تقسيم الموظفين الى مجموعتين عند اكتمال تدريب المجموعة الاولى يتم اطلاق المجموعة الثانية وتدريبها .
+                  </p>
+                </div>
+
+                {/* معلومات إضافية تنظيمية */}
+                <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 flex gap-3 text-xs text-slate-400">
+                  <ShieldCheck className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-bold text-slate-300 mb-0.5">تعليمات المتابعة</p>
+                    <p className="leading-relaxed">يرجى متابعة التحديثات اليومية عبر بوابتكم الرقمية لمعرفة تاريخ انطلاق دورتكم التدريبية المقررة.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* ذيل التنبيه وزر التخطي */}
+              <div className="px-6 py-4 bg-slate-900/40 border-t border-slate-800/40 flex justify-between items-center">
+                <span className="text-[10px] text-slate-500 font-mono">REF: IMC-ALERT-2026</span>
+                <button
+                  onClick={() => setShowAnnouncement(false)}
+                  className="px-6 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20 active:scale-95 cursor-pointer flex items-center gap-1"
+                >
+                  <span>تخطي وقراءة التنبيه</span>
+                  <Check className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
