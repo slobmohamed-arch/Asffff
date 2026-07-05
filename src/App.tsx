@@ -23,7 +23,9 @@ import {
   FileBadge,
   FileSpreadsheet,
   Check,
-  X
+  X,
+  Mail,
+  Headphones
 } from "lucide-react";
 
 // الشعار الرسمي العراقي الذي تم توليده
@@ -536,6 +538,34 @@ export default function App() {
               </div>
             </div>
 
+          </motion.div>
+
+          {/* زر خدمة العملاء */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="w-full max-w-xl animate-fade-in"
+            dir="rtl"
+          >
+            <a
+              href="mailto:sts.iraq.news@gmail.com?subject=استفسار بخصوص بوابة موظفي الإعلام"
+              className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-gradient-to-r from-slate-900 via-[#101925] to-slate-900 border border-amber-500/30 hover:border-amber-500/60 rounded-2xl transition-all duration-300 group hover:shadow-xl hover:shadow-amber-500/10 cursor-pointer"
+            >
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <div className="h-10 w-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-300 shrink-0">
+                  <Headphones className="w-5 h-5" />
+                </div>
+                <div className="text-right">
+                  <h4 className="text-xs sm:text-sm font-bold text-white group-hover:text-amber-400 transition-colors">بوابة الدعم الفني وخدمة العملاء</h4>
+                  <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5">انقر هنا لإرسال بريد إلكتروني مباشر وتلقي المساعدة الفورية</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-amber-400 font-bold bg-slate-950/80 px-4 py-2 rounded-xl border border-slate-800/80 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-300 font-mono w-full sm:w-auto justify-center sm:justify-start shadow-inner">
+                <span>sts.iraq.news@gmail.com</span>
+                <Mail className="w-4 h-4" />
+              </div>
+            </a>
           </motion.div>
 
           {/* لوحة توجيهات عامة وقرارات تضفي مصداقية للنظام الحكومي العراقي */}
