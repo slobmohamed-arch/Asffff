@@ -903,7 +903,7 @@ export default function App() {
                       dir="ltr"
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
-                          if (adminPasswordInput === "Gtasen1122@") {
+                          if (adminPasswordInput === "Gtasen1122@MN") {
                             setIsAdminLoggedIn(true);
                             setShowAdminPanel(true);
                             setAdminPasswordInput("");
@@ -942,7 +942,7 @@ export default function App() {
 
                   <button
                     onClick={() => {
-                      if (adminPasswordInput === "Gtasen1122@") {
+                      if (adminPasswordInput === "Gtasen1122@MN") {
                         setIsAdminLoggedIn(true);
                         setShowAdminPanel(true);
                         setAdminPasswordInput("");
@@ -2322,7 +2322,7 @@ export default function App() {
                     className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/50 rounded-xl py-3 px-4 text-center font-mono font-bold tracking-widest text-amber-400 text-sm focus:outline-none transition-all placeholder-slate-700"
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        if (adminPasswordInput === "Gtasen1122@") {
+                        if (adminPasswordInput === "Gtasen1122@MN") {
                           setIsAdminLoggedIn(true);
                           setShowAdminPanel(true);
                           setShowAdminLoginModal(false);
@@ -2351,7 +2351,7 @@ export default function App() {
                   </button>
                   <button
                     onClick={() => {
-                      if (adminPasswordInput === "Gtasen1122@") {
+                      if (adminPasswordInput === "Gtasen1122@MN") {
                         setIsAdminLoggedIn(true);
                         setShowAdminPanel(true);
                         setShowAdminLoginModal(false);
