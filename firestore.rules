@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isEmployeeId(id) {
+      return id == "mohammed" || id == "abdullah";
+    }
+
+    function isValidBadge(data) {
+      return data.keys().hasAll(['active', 'updatedAt'])
+        && data.keys().size() == 2
+        && data.active is bool
+        && data.updatedAt is string
+        && data.updatedAt.size() <= 100;
+    }
+
+    function isValidContract(data) {
+      return data.keys().hasAll([
+          'idPhoto', 'residencePhoto', 
+          'clause1Answer', 'clause2Answer', 
+          'clause3Answer', 'clause4Answer', 
+          'submittedAt'
+        ])
+        && data.keys().size() == 7
+        && data.idPhoto is string && data.idPhoto.size() <= 10000000
+        && data.residencePhoto is string && data.residencePhoto.size() <= 10000000
+        && data.clause1Answer is string && data.clause1Answer.size() <= 1000
+        && data.clause2Answer is string && data.clause2Answer.size() <= 1000
+        && data.clause3Answer is string && data.clause3Answer.size() <= 1000
+        && data.clause4Answer is string && data.clause4Answer.size() <= 1000
+        && data.submittedAt is string && data.submittedAt.size() <= 100;
+    }
+
+    function isValidMessage(data) {
+      return data.keys().hasAll(['employeeId', 'sender', 'text', 'timestamp', 'time'])
+        && data.keys().size() == 5
+        && data.employeeId is string && isEmployeeId(data.employeeId)
+        && data.sender is string && (data.sender == 'employee' || data.sender == 'admin')
+        && data.text is string && data.text.size() <= 5000
+        && data.timestamp is number
+        && data.time is string && data.time.size() <= 100;
+    }
+
+    match /badges/{employeeId} {
+      allow read: if isEmployeeId(employeeId);
+      allow write: if isEmployeeId(employeeId) && isValidBadge(request.resource.data);
+    }
+
+    match /contracts/{employeeId} {
+      allow read: if isEmployeeId(employeeId);
+      allow write: if isEmployeeId(employeeId) && isValidContract(request.resource.data);
+    }
+
+    match /messages/{messageId} {
+      allow read: if true;
+      allow write: if isValidMessage(request.resource.data);
+    }
+  }
+}

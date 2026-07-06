@@ -1,0 +1,106 @@
+{
+  "entities": {
+    "Badge": {
+      "title": "Badge Status",
+      "description": "Status of the Iraqi media federal badge for an employee",
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "description": "Whether the badge is active or revoked"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp of the last update"
+        }
+      },
+      "required": ["active", "updatedAt"]
+    },
+    "Contract": {
+      "title": "Employee Contract",
+      "description": "Iraqi media contract and documents submitted by an employee",
+      "type": "object",
+      "properties": {
+        "idPhoto": {
+          "type": "string",
+          "description": "Base64-encoded image of the national ID card"
+        },
+        "residencePhoto": {
+          "type": "string",
+          "description": "Base64-encoded image of the residence card"
+        },
+        "clause1Answer": {
+          "type": "string",
+          "description": "Employee acknowledgment of Clause 1"
+        },
+        "clause2Answer": {
+          "type": "string",
+          "description": "Employee acknowledgment of Clause 2"
+        },
+        "clause3Answer": {
+          "type": "string",
+          "description": "Employee acknowledgment of Clause 3"
+        },
+        "clause4Answer": {
+          "type": "string",
+          "description": "Employee final response to Clause 4"
+        },
+        "submittedAt": {
+          "type": "string",
+          "description": "Date and time of submission"
+        }
+      },
+      "required": [
+        "idPhoto",
+        "residencePhoto",
+        "clause1Answer",
+        "clause2Answer",
+        "clause3Answer",
+        "clause4Answer",
+        "submittedAt"
+      ]
+    },
+    "Message": {
+      "title": "Chat Message",
+      "description": "Message between employee and admin",
+      "type": "object",
+      "properties": {
+        "employeeId": {
+          "type": "string",
+          "description": "ID of the employee"
+        },
+        "sender": {
+          "type": "string",
+          "description": "Sender of the message: either 'employee' or 'admin'"
+        },
+        "text": {
+          "type": "string",
+          "description": "The textual content of the message"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "The epoch timestamp for sorting"
+        },
+        "time": {
+          "type": "string",
+          "description": "The formatted localized time of the message"
+        }
+      },
+      "required": ["employeeId", "sender", "text", "timestamp", "time"]
+    }
+  },
+  "firestore": {
+    "badges/{employeeId}": {
+      "schema": "Badge",
+      "description": "Collection of employee media badge active/inactive statuses"
+    },
+    "contracts/{employeeId}": {
+      "schema": "Contract",
+      "description": "Collection of submitted contracts with ID/residence photos and clause responses"
+    },
+    "messages/{messageId}": {
+      "schema": "Message",
+      "description": "Real-time chat messages between employees and administration"
+    }
+  }
+}
