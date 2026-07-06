@@ -444,8 +444,10 @@ export default function App() {
         setCitizenErrorMsg("تم حظر النافذة المنبثقة من قبل المتصفح. يرجى تفعيل النوافذ المنبثقة وحاول مرة أخرى.");
       } else if (err.code === "auth/cancelled-popup-request") {
         setCitizenErrorMsg("تم إلغاء عملية تسجيل الدخول من قبل المستخدم.");
+      } else if (err.code === "auth/unauthorized-domain" || (err.message && err.message.includes("auth/unauthorized-domain"))) {
+        setCitizenErrorMsg(`خطأ النطاق غير المصرح به: يرجى إضافة النطاق الحالي (${window.location.hostname}) إلى قائمة النطاقات المصرح بها (Authorized Domains) في وحدة تحكم Firebase (Authentication -> Settings -> Authorized domains).`);
       } else {
-        setCitizenErrorMsg("فشل تسجيل الدخول عبر حساب جوجل. يرجى التحقق من اتصالك بالإنترنت.");
+        setCitizenErrorMsg(`فشل تسجيل الدخول عبر حساب جوجل: ${err.message || "يرجى التحقق من اتصالك بالإنترنت."}`);
       }
     }
   };
