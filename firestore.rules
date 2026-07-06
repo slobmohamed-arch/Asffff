@@ -38,9 +38,8 @@ service cloud.firestore {
 
     function isValidMessage(data) {
       return data.keys().hasAll(['employeeId', 'sender', 'text', 'timestamp', 'time'])
-        && data.keys().size() == 5
-        && data.employeeId is string && isEmployeeId(data.employeeId)
-        && data.sender is string && (data.sender == 'employee' || data.sender == 'admin')
+        && data.employeeId is string
+        && data.sender is string && (data.sender == 'employee' || data.sender == 'admin' || data.sender == 'citizen')
         && data.text is string && data.text.size() <= 5000
         && data.timestamp is number
         && data.time is string && data.time.size() <= 100;
