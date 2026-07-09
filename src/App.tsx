@@ -1135,29 +1135,34 @@ export default function App() {
             )}
           </AnimatePresence>
 
-          {/* زر رفع الثبوتيات وإنشاء عقد الاتفاق الفاخر */}
-          <div className="w-full max-w-xl flex justify-end" dir="rtl">
-            <button
-              onClick={() => {
-                setShowContractModal(true);
-                setShowContractSuccess(false);
-              }}
-              className="w-full py-4 px-6 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-amber-500/10 hover:shadow-amber-500/25 transition-all duration-300 flex items-center justify-center gap-3 border border-amber-400/40 active:scale-[0.98] cursor-pointer group"
-            >
-              <FileText className="w-5 h-5 shrink-0 text-slate-950 group-hover:scale-110 transition-transform" />
-              <span>قم برفع ثبوتياتك وإنشاء عقد اتفاق</span>
+          {/* صندوق حالة التدريب الامتحاني المتميز والمضيء */}
+          <div className="w-full max-w-xl text-right" dir="rtl">
+            <div className="w-full p-5 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-emerald-500/35 rounded-2xl shadow-xl flex items-center justify-between gap-4 relative overflow-hidden transition-all duration-300 hover:border-emerald-500/55">
+              {/* توهج خفيف بالخلفية */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/[0.03] rounded-full filter blur-xl pointer-events-none animate-pulse"></div>
               
-              {submissions[selectedEmployee] ? (
-                <span className="bg-emerald-950 text-emerald-400 text-[10px] px-2.5 py-1 rounded-full border border-emerald-500/30 flex items-center gap-1 font-bold">
-                  <Check className="w-3 h-3" />
-                  تم الإرسال
-                </span>
-              ) : (
-                <span className="bg-amber-950 text-amber-400 text-[10px] px-2.5 py-1 rounded-full border border-amber-500/30 flex items-center gap-1 font-bold animate-pulse">
-                  غير مكتمل
-                </span>
-              )}
-            </button>
+              <div className="flex items-center gap-4">
+                {/* الضوء الأخضر النابض التفاعلي */}
+                <div className="relative flex h-3.5 w-3.5 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.85)]"></span>
+                </div>
+                
+                <div className="text-right">
+                  <h4 className="text-sm sm:text-base font-black text-emerald-400 tracking-wide">
+                    تحت التدريب الامتحاني
+                  </h4>
+                  <p className="text-[10px] sm:text-xs text-slate-400 mt-1 leading-relaxed">
+                    هذا الحساب معتمد ويخضع حالياً لبرنامج التدريب والاختبار المهني المستمر.
+                  </p>
+                </div>
+              </div>
+
+              <div className="hidden sm:flex flex-col items-end text-[9px] text-emerald-500/50 font-mono tracking-wider leading-relaxed shrink-0 select-none">
+                <span>STATUS: TRAINING</span>
+                <span>SYSTEM: EXAM_V2</span>
+              </div>
+            </div>
           </div>
 
           {/* بطاقة الموظف التعريفية */}
@@ -2423,29 +2428,17 @@ export default function App() {
 
               {/* Menu Items */}
               <div className="p-4 flex-1 space-y-2 text-right">
-                {/* Item 1: Submit Credentials & Contract */}
-                <button
-                  onClick={() => {
-                    setShowMenu(false);
-                    setShowContractModal(true);
-                    setShowContractSuccess(false);
-                  }}
-                  className="w-full p-3 bg-slate-900/40 hover:bg-slate-900 border border-slate-850 hover:border-amber-500/30 text-slate-300 hover:text-amber-400 font-bold text-xs rounded-xl transition-all duration-300 flex items-center justify-between group cursor-pointer"
-                >
+                {/* Item 1: Training Status (Read Only Info) */}
+                <div className="w-full p-3 bg-slate-900/40 border border-emerald-500/20 text-slate-300 font-bold text-xs rounded-xl flex items-center justify-between select-none">
                   <div className="flex items-center gap-3">
-                    <FileText className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" />
-                    <span>تقديم الثبوتيات وإنشاء العقد</span>
+                    <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                    <span>تحت التدريب الامتحاني</span>
                   </div>
-                  {submissions[selectedEmployee] ? (
-                    <span className="bg-emerald-950 text-emerald-400 text-[9px] px-2 py-0.5 rounded-full border border-emerald-500/30 font-bold">
-                      مكتمل
-                    </span>
-                  ) : (
-                    <span className="bg-amber-950 text-amber-400 text-[9px] px-2 py-0.5 rounded-full border border-amber-500/30 font-bold animate-pulse">
-                      غير مكتمل
-                    </span>
-                  )}
-                </button>
+                  <span className="flex h-2 w-2 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                </div>
 
                 {/* Item 2: Live Chat */}
                 {(() => {
