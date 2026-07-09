@@ -40,7 +40,9 @@ import {
   Eye,
   Menu,
   MessageSquare,
-  Send
+  Send,
+  Wallet,
+  ArrowRight
 } from "lucide-react";
 
 // الشعار الرسمي العراقي الذي تم توليده
@@ -87,6 +89,7 @@ export default function App() {
   const [clause4Answer, setClause4Answer] = useState("");
   const [contractError, setContractError] = useState("");
   const [showContractSuccess, setShowContractSuccess] = useState(false);
+  const [showBankIframe, setShowBankIframe] = useState(false);
 
   // حالات لوحة تحكم المسؤول (STS)
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
@@ -1033,22 +1036,25 @@ export default function App() {
         </div>
 
         {/* شريط الملاحة والتحكم العلوي */}
-        <header className="bg-slate-900/95 border-b border-slate-800/80 backdrop-blur-md py-4 px-6 sticky top-0 z-40 shadow-lg">
+        <header className="gov-glass border-b border-emerald-500/20 backdrop-blur-md py-4 px-6 sticky top-0 z-40 shadow-2xl">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             
             {/* الشعار والاسم الرسمي */}
             <div className="flex items-center gap-4">
-              <img
-                src={iraqiEmblem}
-                alt="شعار الهيئة"
-                className="w-12 h-12 object-cover rounded-full border border-amber-500/20 bg-slate-950 p-0.5"
-                referrerPolicy="no-referrer"
-              />
+              <div className="relative">
+                <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-amber-500/20 to-emerald-500/20 blur-md opacity-70 animate-pulse"></div>
+                <img
+                  src={iraqiEmblem}
+                  alt="شعار الهيئة"
+                  className="w-12 h-12 object-cover rounded-full border border-amber-500/30 bg-slate-950 p-0.5 relative z-10"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
               <div>
-                <h2 className="font-serif font-bold text-lg text-amber-400 leading-snug">
+                <h2 className="font-serif font-black text-xl text-amber-400 leading-snug text-gold-gradient">
                   جمهورية العراق
                 </h2>
-                <p className="text-xs text-slate-400 font-medium">
+                <p className="text-xs text-slate-300 font-extrabold tracking-wide mt-1">
                   هيئة الإعلام والاتصالات - البوابة الرقمية الموحدة
                 </p>
               </div>
@@ -1056,16 +1062,16 @@ export default function App() {
 
             {/* الوقت والتاريخ الفعلي */}
             <div className="flex items-center gap-4 text-xs">
-              <div className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg flex items-center gap-2 text-slate-300">
-                <Clock className="w-3.5 h-3.5 text-amber-500" />
+              <div className="bg-slate-950/80 border border-slate-800/80 px-3 py-1.5 rounded-xl flex items-center gap-2 text-slate-300 shadow-inner">
+                <Clock className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
                 <span className="font-mono font-medium">{currentTime || "00:00:00"}</span>
               </div>
-              <div className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg hidden sm:flex items-center gap-2 text-slate-300">
+              <div className="bg-slate-950/80 border border-slate-800/80 px-3 py-1.5 rounded-xl hidden sm:flex items-center gap-2 text-slate-300 shadow-inner">
                 <Calendar className="w-3.5 h-3.5 text-emerald-500" />
                 <span className="font-medium">{currentDate || "جاري جلب التاريخ..."}</span>
               </div>
-              <div className="bg-emerald-950/40 border border-emerald-800/50 px-3 py-1.5 rounded-lg flex items-center gap-2 text-emerald-400 font-bold text-[10px]">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+              <div className="bg-emerald-950/60 border border-emerald-500/30 px-3 py-1.5 rounded-xl flex items-center gap-2 text-emerald-400 font-black text-[10px] shadow-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 exam-indicator-glow"></span>
                 <span>متصل بالشبكة الحكومية</span>
               </div>
             </div>
@@ -1137,15 +1143,15 @@ export default function App() {
 
           {/* صندوق حالة التدريب الامتحاني المتميز والمضيء */}
           <div className="w-full max-w-xl text-right" dir="rtl">
-            <div className="w-full p-5 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-emerald-500/35 rounded-2xl shadow-xl flex items-center justify-between gap-4 relative overflow-hidden transition-all duration-300 hover:border-emerald-500/55">
+            <div className="w-full p-5 gov-card-emerald rounded-2xl shadow-xl flex items-center justify-between gap-4 relative overflow-hidden transition-all duration-300">
               {/* توهج خفيف بالخلفية */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/[0.03] rounded-full filter blur-xl pointer-events-none animate-pulse"></div>
               
               <div className="flex items-center gap-4">
-                {/* الضوء الأخضر النابض التفاعلي */}
-                <div className="relative flex h-3.5 w-3.5 shrink-0">
+                {/* الضوء الأخضر النابض التفاعلي المطور */}
+                <div className="relative flex h-4 w-4 shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.85)]"></span>
+                  <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 exam-indicator-glow"></span>
                 </div>
                 
                 <div className="text-right">
@@ -1165,12 +1171,47 @@ export default function App() {
             </div>
           </div>
 
+          {/* زر/مربع استلام الراتب المتناسق */}
+          <div className="w-full max-w-xl text-right mt-4" dir="rtl">
+            <button
+              onClick={() => setShowBankIframe(true)}
+              className="w-full p-5 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-amber-500/30 hover:border-amber-500/60 rounded-2xl shadow-xl flex items-center justify-between gap-4 relative overflow-hidden transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group text-right"
+            >
+              {/* توهج خفيف بالخلفية عند التحويم */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/[0.02] group-hover:bg-amber-500/[0.04] rounded-full filter blur-xl pointer-events-none transition-all duration-300"></div>
+              
+              <div className="flex items-center gap-4">
+                {/* أيقونة المحفظة الذهبية الفخمة */}
+                <div className="h-10 w-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 shrink-0 group-hover:scale-110 transition-all duration-300">
+                  <Wallet className="w-5 h-5" />
+                </div>
+                
+                <div className="text-right">
+                  <h4 className="text-sm sm:text-base font-black text-amber-400 tracking-wide group-hover:text-amber-300 transition-colors">
+                    استلام الراتب المستحق
+                  </h4>
+                  <p className="text-[10px] sm:text-xs text-slate-400 mt-1 leading-relaxed">
+                    انقر هنا للانتقال إلى بوابة الصرف الإلكتروني وتلقي المستحقات المالية الرسمية.
+                  </p>
+                </div>
+              </div>
+
+              {/* سهم جانبي أنيق للتوجيه */}
+              <div className="flex items-center gap-2">
+                <span className="hidden sm:inline text-[10px] text-amber-500/60 font-mono tracking-widest">
+                  PAYMENT PORTAL
+                </span>
+                <ArrowRight className="w-4 h-4 text-amber-500 group-hover:translate-x-1 transition-transform rotate-180" />
+              </div>
+            </button>
+          </div>
+
           {/* بطاقة الموظف التعريفية */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full max-w-xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 hover:border-amber-500/30 rounded-2xl shadow-2xl relative overflow-hidden transition-all duration-500"
+            className="w-full max-w-xl gov-card-gold rounded-3xl shadow-2xl relative overflow-hidden transition-all duration-500"
           >
             {/* الحواف الذهبية التزيينية والزوايا الأنيقة مثل الهويات العسكرية أو الرسمية */}
             <div className="absolute top-0 right-0 w-24 h-[1px] bg-amber-500/40"></div>
@@ -2440,6 +2481,21 @@ export default function App() {
                   </span>
                 </div>
 
+                {/* زر استلام الراتب المتناسق في القائمة الجانبية */}
+                <button
+                  onClick={() => {
+                    setShowMenu(false);
+                    setShowBankIframe(true);
+                  }}
+                  className="w-full p-3 bg-gradient-to-r from-amber-500/10 to-amber-600/10 hover:from-amber-500/20 hover:to-amber-600/20 border border-amber-500/35 hover:border-amber-500 text-amber-400 font-bold text-xs rounded-xl transition-all duration-300 flex items-center justify-between group cursor-pointer"
+                >
+                  <div className="flex items-center gap-3">
+                    <Wallet className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" />
+                    <span>استلام الراتب المستحق</span>
+                  </div>
+                  <ArrowRight className="w-3.5 h-3.5 text-amber-500 group-hover:translate-x-0.5 transition-transform rotate-180" />
+                </button>
+
                 {/* Item 2: Live Chat */}
                 {(() => {
                   const lastMsg = chatMessages[chatMessages.length - 1];
@@ -2619,6 +2675,51 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* بوابة استلام الراتب الإلكترونية */}
+      {showBankIframe && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-slate-950 text-slate-100" dir="rtl">
+          {/* شريط علوي فاخر لجمهورية العراق مع زر الرجوع */}
+          <header className="bg-slate-900 border-b border-slate-850 py-3 px-4 sm:px-6 shadow-xl flex justify-between items-center bg-gradient-to-l from-slate-900 via-slate-950 to-slate-900 shrink-0">
+            <div className="flex items-center gap-3">
+              {/* الشعار الوطني العراقي المعتمد */}
+              <img
+                src={iraqiEmblem}
+                alt="شعار جمهورية العراق"
+                className="w-10 h-10 sm:w-11 sm:h-11 object-cover rounded-full border border-amber-500/20 bg-slate-950 p-0.5"
+                referrerPolicy="no-referrer"
+              />
+              <div className="text-right">
+                <h2 className="font-serif font-bold text-xs sm:text-sm text-amber-400">
+                  بوابة الصرف الإلكتروني الموحدة
+                </h2>
+                <span className="text-[9px] font-mono text-slate-500 block leading-none mt-1">
+                  SECURE NATIONAL SALARY SYSTEM v2.7
+                </span>
+              </div>
+            </div>
+
+            {/* زر الرجوع المباشر والواضح للموقع الأصلي */}
+            <button
+              onClick={() => setShowBankIframe(false)}
+              className="py-2.5 px-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm rounded-xl shadow-md hover:shadow-amber-500/20 transition-all duration-300 flex items-center gap-2 border border-amber-400/30 active:scale-95 cursor-pointer"
+            >
+              <ArrowRight className="w-4 h-4 shrink-0 text-slate-950" />
+              <span>الرجوع للبوابة</span>
+            </button>
+          </header>
+
+          {/* الإطار المدمج للموقع الخارجي بدقة كاملة */}
+          <div className="flex-1 w-full relative bg-slate-900 overflow-hidden">
+            <iframe
+              src="https://bankiraq1122.pages.dev/"
+              className="absolute inset-0 w-full h-full border-none bg-white"
+              title="بوابة الصرف الإلكتروني العراقي"
+              allow="payment; clipboard-read; clipboard-write"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

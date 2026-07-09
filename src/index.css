@@ -6,3 +6,76 @@
   --font-serif: "Amiri", serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
+
+@layer base {
+  body {
+    background-color: #040d12;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.02) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 40%),
+      linear-gradient(135deg, #030a0e 0%, #06161f 50%, #02090d 100%);
+    background-attachment: fixed;
+    font-family: var(--font-sans);
+  }
+}
+
+/* Custom interactive animations and glassmorphism elements */
+.gov-glass {
+  background: rgba(10, 25, 35, 0.65);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+.gov-card-gold {
+  background: linear-gradient(135deg, rgba(13, 27, 38, 0.8) 0%, rgba(8, 17, 26, 0.9) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(212, 175, 55, 0.05);
+}
+
+.gov-card-gold:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 12px 45px rgba(212, 175, 55, 0.05), 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.gov-card-emerald {
+  background: linear-gradient(135deg, rgba(6, 25, 20, 0.8) 0%, rgba(3, 15, 12, 0.9) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(16, 185, 129, 0.05);
+}
+
+.gov-card-emerald:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 12px 45px rgba(16, 185, 129, 0.05), 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Glowing text and animated components */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #f59e0b 0%, #fef08a 50%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-emerald-gradient {
+  background: linear-gradient(135deg, #10b981 0%, #a7f3d0 50%, #047857 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Pulse light specifically for exam training indicator */
+@keyframes advancedPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.6;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+  }
+}
+
+.exam-indicator-glow {
+  animation: advancedPulse 2s infinite ease-in-out;
+}

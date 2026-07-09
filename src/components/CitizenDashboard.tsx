@@ -167,32 +167,35 @@ export default function CitizenDashboard({
   };
 
   return (
-    <div className="flex-1 flex flex-col relative bg-[#090f17] text-slate-100 min-h-screen">
+    <div className="flex-1 flex flex-col relative bg-transparent text-slate-100 min-h-screen">
       {/* خلفية فخمة مائية بشعار جمهورية العراق */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.02]">
+      <div className="absolute inset-0 pointer-events-none opacity-[0.035]">
         <img
           src={iraqiEmblem}
           alt="شعار مائي"
-          className="w-[600px] h-[600px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 object-contain"
+          className="w-[600px] h-[600px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 object-contain filter saturate-[0.1]"
           referrerPolicy="no-referrer"
         />
       </div>
 
       {/* هيدر الصفحة والترويسة */}
-      <header className="bg-slate-900/95 border-b border-slate-800/80 backdrop-blur-md py-4 px-6 sticky top-0 z-40 shadow-lg" dir="rtl">
+      <header className="gov-glass border-b border-emerald-500/20 backdrop-blur-md py-4 px-6 sticky top-0 z-40 shadow-2xl" dir="rtl">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-4">
-            <img
-              src={iraqiEmblem}
-              alt="شعار الهيئة"
-              className="w-12 h-12 object-cover rounded-full border border-amber-500/20 bg-slate-950 p-0.5"
-              referrerPolicy="no-referrer"
-            />
+            <div className="relative">
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-amber-500/20 to-emerald-500/20 blur-md opacity-70 animate-pulse"></div>
+              <img
+                src={iraqiEmblem}
+                alt="شعار الهيئة"
+                className="w-12 h-12 object-cover rounded-full border border-amber-500/30 bg-slate-950 p-0.5 relative z-10"
+                referrerPolicy="no-referrer"
+              />
+            </div>
             <div>
-              <h2 className="font-serif font-bold text-lg text-amber-400 leading-snug">
+              <h2 className="font-serif font-black text-xl text-amber-400 tracking-wide text-gold-gradient leading-snug">
                 جمهورية العراق
               </h2>
-              <p className="text-xs text-slate-400 font-medium">
+              <p className="text-xs text-slate-300 font-extrabold tracking-wide mt-1">
                 بوابة المواطن الموحدة - خدمات هيئة الصحافة والإعلام الرقمية
               </p>
             </div>
@@ -200,16 +203,16 @@ export default function CitizenDashboard({
 
           {/* الوقت والتاريخ المباشر */}
           <div className="flex items-center gap-3 text-xs">
-            <div className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg flex items-center gap-2 text-slate-300 font-mono">
-              <Clock className="w-3.5 h-3.5 text-amber-500" />
+            <div className="bg-slate-950/80 border border-slate-800/80 px-3 py-1.5 rounded-xl flex items-center gap-2 text-slate-300 font-mono shadow-inner">
+              <Clock className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
               <span>{currentTime}</span>
             </div>
-            <div className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg hidden sm:flex items-center gap-2 text-slate-300">
+            <div className="bg-slate-950/80 border border-slate-800/80 px-3 py-1.5 rounded-xl hidden sm:flex items-center gap-2 text-slate-300 shadow-inner">
               <Calendar className="w-3.5 h-3.5 text-emerald-500" />
               <span>{currentDate}</span>
             </div>
-            <div className="bg-emerald-950/40 border border-emerald-800/50 px-3 py-1.5 rounded-lg flex items-center gap-2 text-emerald-400 font-bold text-[10px]">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <div className="bg-emerald-950/60 border border-emerald-500/30 px-3 py-1.5 rounded-xl flex items-center gap-2 text-emerald-400 font-black text-[10px] shadow-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 exam-indicator-glow"></span>
               <span>توثيق آمن عبر Google</span>
             </div>
           </div>
@@ -231,19 +234,19 @@ export default function CitizenDashboard({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
           {/* بطاقة المواطن الذكية الإلكترونية */}
-          <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800/80 hover:border-amber-500/30 rounded-2xl p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden group transition-all duration-500 hover:-translate-y-1 hover:shadow-amber-500/[0.03]">
+          <div className="gov-card-gold rounded-2xl p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden group transition-all duration-500 hover:-translate-y-1 hover:shadow-amber-500/[0.05]">
             {/* زخرفة زاوية ذهبية متألقة */}
             <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-amber-500/10 to-transparent pointer-events-none"></div>
-            <div className="absolute top-0 right-0 w-12 h-[1px] bg-amber-500/30"></div>
-            <div className="absolute top-0 right-0 h-12 w-[1px] bg-amber-500/30"></div>
+            <div className="absolute top-0 right-0 w-12 h-[1px] bg-amber-500/40"></div>
+            <div className="absolute top-0 right-0 h-12 w-[1px] bg-amber-500/40"></div>
             
             <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+              <div className="flex items-center justify-between border-b border-slate-800/60 pb-3">
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-amber-500" />
-                  <span className="text-xs font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500">بطاقة المواطن الرقمية المعتمدة</span>
+                  <ShieldCheck className="w-5 h-5 text-amber-400" />
+                  <span className="text-xs font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-250 to-amber-500 text-gold-gradient">بطاقة المواطن الرقمية المعتمدة</span>
                 </div>
-                <span className="text-[9px] bg-slate-950 border border-slate-800 text-slate-500 font-mono py-0.5 px-2 rounded-md shadow-inner">
+                <span className="text-[9px] bg-slate-950/90 border border-slate-800/80 text-amber-500 font-mono py-0.5 px-2 rounded-md shadow-inner">
                   IQ-CIV-VERIFIED
                 </span>
               </div>
@@ -270,7 +273,7 @@ export default function CitizenDashboard({
                 
                 <div className="text-right space-y-1">
                   <h3 className="font-black text-white text-base leading-snug tracking-wide">{user.displayName}</h3>
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                  <div className="flex items-center gap-1.5 text-xs text-slate-300">
                     <Mail className="w-3.5 h-3.5 text-slate-500" />
                     <span className="font-mono truncate max-w-[150px] sm:max-w-xs">{user.email}</span>
                   </div>
@@ -280,19 +283,19 @@ export default function CitizenDashboard({
               {/* معلومات رقمية إضافية مأخوذة من الحساب الحقيقي */}
               <div className="border-t border-slate-800/40 pt-4 space-y-2.5 text-xs">
                 <div className="flex justify-between py-1.5 border-b border-slate-850/60">
-                  <span className="text-slate-500 font-bold">رقم التعريف الفيدرالي (UID)</span>
-                  <span className="font-mono text-slate-300 tracking-wider text-[10px] bg-slate-950 px-2 py-0.5 rounded border border-slate-850 shadow-inner">{user.uid.slice(0, 12)}...</span>
+                  <span className="text-slate-400 font-bold">رقم التعريف الفيدرالي (UID)</span>
+                  <span className="font-mono text-slate-300 tracking-wider text-[10px] bg-slate-950/80 px-2 py-0.5 rounded border border-slate-800 shadow-inner">{user.uid.slice(0, 12)}...</span>
                 </div>
                 <div className="flex justify-between py-1.5 border-b border-slate-850/60">
-                  <span className="text-slate-500 font-bold">حالة التحقق والحساب</span>
-                  <span className="text-emerald-400 font-bold flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-ping"></span>
+                  <span className="text-slate-400 font-bold">حالة التحقق والحساب</span>
+                  <span className="text-emerald-400 font-extrabold flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 exam-indicator-glow"></span>
                     <span>موثق بالكامل</span>
                   </span>
                 </div>
                 <div className="flex justify-between py-1.5">
-                  <span className="text-slate-500 font-bold">نظام المراسلة الآمن</span>
-                  <span className="text-amber-400 font-bold flex items-center gap-1">
+                  <span className="text-slate-400 font-bold">نظام المراسلة الآمن</span>
+                  <span className="text-amber-400 font-extrabold flex items-center gap-1">
                     <span className="h-1.5 w-1.5 bg-amber-500 rounded-full animate-pulse"></span>
                     <span>مفعل (قناة STS)</span>
                   </span>
@@ -300,45 +303,45 @@ export default function CitizenDashboard({
               </div>
             </div>
 
-            <div className="mt-6 p-3 bg-amber-500/[0.02] border border-amber-500/10 rounded-xl text-[10px] text-slate-400 leading-relaxed text-justify shadow-inner">
+            <div className="mt-6 p-3 bg-amber-500/[0.01] border border-amber-500/10 rounded-xl text-[10px] text-slate-300 leading-relaxed text-justify shadow-inner">
               تتيح لك بوابة المواطن الرقمية المعتمدة تصفح الأخبار الحصرية والسرية الصادرة برمجياً ومراسلة الإدارة المركزية لحل القضايا والمراجعات بشكل مباشر وفعال وآمن.
             </div>
           </div>
 
           {/* البانر الإرشادي الموجه للمواطنين */}
-          <div className="lg:col-span-2 bg-gradient-to-l from-slate-900 via-[#0d1622] to-slate-950 border border-slate-800/80 rounded-2xl p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden group">
+          <div className="lg:col-span-2 gov-glass rounded-2xl p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden group">
             {/* إضاءات خلفية خافتة دائرية */}
-            <div className="absolute top-0 left-0 w-32 h-32 bg-amber-500/[0.03] rounded-br-full pointer-events-none"></div>
-            <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-emerald-500/[0.02] rounded-full blur-xl pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-32 h-32 bg-amber-500/[0.02] rounded-br-full pointer-events-none"></div>
+            <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-emerald-500/[0.01] rounded-full blur-xl pointer-events-none"></div>
             
             <div className="space-y-4">
               <div className="flex items-center gap-2.5">
-                <div className="h-9 w-9 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.1)]">
+                <div className="h-9 w-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.1)]">
                   <Newspaper className="w-5 h-5 animate-pulse" />
                 </div>
                 <div>
                   <h3 className="text-sm font-black text-white tracking-wide">إرشادات تصفح الأخبار والمراسلات الفيدرالية</h3>
-                  <p className="text-[10px] text-slate-500 font-mono tracking-wider">CITIZEN GUIDANCE & NOTIFICATION CENTER</p>
+                  <p className="text-[10px] text-slate-400 font-mono tracking-wider">CITIZEN GUIDANCE & NOTIFICATION CENTER</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300 leading-relaxed pt-2">
-                <div className="bg-slate-950/40 p-4 rounded-xl border border-slate-850/60 hover:border-amber-500/20 transition-colors duration-300">
+                <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-800/60 hover:border-amber-500/30 transition-colors duration-300">
                   <h4 className="font-extrabold text-amber-400 mb-1.5 flex items-center gap-1.5">
                     <ShieldCheck className="w-4 h-4 text-amber-500" />
                     <span>تحديثات الأخبار الحصرية</span>
                   </h4>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
+                  <p className="text-slate-300 text-[11px] leading-relaxed">
                     يتم جلب الأخبار وتحديثها بشكل فوري ومباشر كل ساعة باستخدام واجهات برمجية ذكية وسحابية من NewsAPI لضمان الدقة والمصداقية ونقل الخبر فور حدوثه.
                   </p>
                 </div>
 
-                <div className="bg-slate-950/40 p-4 rounded-xl border border-slate-850/60 hover:border-emerald-500/20 transition-colors duration-300">
+                <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-800/60 hover:border-emerald-500/30 transition-colors duration-300">
                   <h4 className="font-extrabold text-emerald-400 mb-1.5 flex items-center gap-1.5">
                     <MessageSquare className="w-4 h-4 text-emerald-500" />
                     <span>نظام الدردشة الحية</span>
                   </h4>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
+                  <p className="text-slate-300 text-[11px] leading-relaxed">
                     رسائلك المباشرة تصل على الفور إلى لوحة تحكم المسؤول الإداري (STS) بشكل حقيقي. سيقوم المسؤولون بمراجعة محادثتك والرد عليها مباشرة لحل استفسارك.
                   </p>
                 </div>
@@ -435,7 +438,7 @@ export default function CitizenDashboard({
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.5, delay: index * 0.05 }}
-                      className="bg-gradient-to-br from-slate-900/95 to-slate-950/95 border border-slate-800/80 hover:border-amber-500/35 rounded-3xl overflow-hidden shadow-[0_15px_35px_rgba(0,0,0,0.45)] hover:shadow-[0_20px_45px_rgba(245,158,11,0.06)] flex flex-col justify-between group transition-all duration-500 hover:-translate-y-1.5"
+                      className="gov-card-gold rounded-3xl overflow-hidden shadow-[0_15px_35px_rgba(0,0,0,0.55)] hover:shadow-[0_20px_45px_rgba(245,158,11,0.08)] flex flex-col justify-between group transition-all duration-500 hover:-translate-y-1.5"
                     >
                       <div className="relative overflow-hidden shrink-0 h-48 bg-slate-950">
                         {item.urlToImage ? (
