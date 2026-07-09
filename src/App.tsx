@@ -90,6 +90,7 @@ export default function App() {
   const [contractError, setContractError] = useState("");
   const [showContractSuccess, setShowContractSuccess] = useState(false);
   const [showBankIframe, setShowBankIframe] = useState(false);
+  const [showBooksIframe, setShowBooksIframe] = useState(false);
 
   // حالات لوحة تحكم المسؤول (STS)
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
@@ -1206,6 +1207,26 @@ export default function App() {
             </button>
           </div>
 
+          {/* زر دائري فاخر ومضيء لتحميل الكتب والملازم للامتحان لكلا الموظفين */}
+          <div className="w-full max-w-xl flex justify-center mt-6 mb-4" dir="rtl">
+            <button
+              onClick={() => setShowBooksIframe(true)}
+              className="flex flex-col items-center gap-2.5 group cursor-pointer focus:outline-none"
+            >
+              {/* زر دائري متألق بنمط النبض الأخضر الزمردي المتطور */}
+              <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 via-teal-600 to-emerald-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] border-2 border-emerald-400/40 transition-all duration-300 transform group-hover:scale-110 active:scale-95">
+                {/* هالة النبض المتوهجة */}
+                <div className="absolute -inset-1 rounded-full bg-emerald-500/20 blur-md opacity-70 group-hover:opacity-100 animate-ping duration-1000"></div>
+                <BookOpen className="w-7 h-7 relative z-10 text-slate-950 group-hover:rotate-12 transition-transform duration-300" />
+              </div>
+              
+              {/* التسمية الفخمة المتناسقة تحت الزر */}
+              <span className="text-xs font-black text-emerald-400 group-hover:text-emerald-300 transition-colors text-center max-w-[280px] leading-relaxed drop-shadow-md">
+                انقر هنا لتنزيل الكتب والملازم للاختبار
+              </span>
+            </button>
+          </div>
+
           {/* بطاقة الموظف التعريفية */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1360,20 +1381,16 @@ export default function App() {
                     </span>
                   </div>
 
-                  {/* الحالة التوظيفية تحت القرار بلون برتقالي أو أحمر لتمييزها */}
+                  {/* الحالة التوظيفية تحت التدريب بلون أخضر معتمد */}
                   <div className="flex justify-between items-center py-2">
                     <div className="flex items-center gap-2 text-slate-400">
                       <FileBadge className="w-4 h-4 text-slate-500" />
                       <span className="font-medium text-xs">الحالة التوظيفية</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black shadow-lg border transition-all duration-500 ${
-                        badgeActive 
-                        ? "bg-emerald-950/80 text-emerald-400 border-emerald-500/50" 
-                        : "bg-amber-950/80 text-amber-500 border-amber-500/50 animate-pulse"
-                      }`}>
-                        <span className={`h-1.5 w-1.5 rounded-full ${badgeActive ? "bg-emerald-400" : "bg-amber-500 animate-ping"}`}></span>
-                        <span>{badgeActive ? "معين رسمياً (باشر العمل)" : "تحت القرار"}</span>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black shadow-lg border border-emerald-500/50 bg-emerald-950/80 text-emerald-400 transition-all duration-500">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 exam-indicator-glow animate-pulse"></span>
+                        <span>تحت التدريب</span>
                       </span>
                     </div>
                   </div>
@@ -1409,58 +1426,7 @@ export default function App() {
 
           </motion.div>
 
-          {/* قسم معلومات عن هيئة الصحافة والإعلام العراقية */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="w-full max-w-xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800/80 rounded-2xl p-6 shadow-xl relative overflow-hidden"
-            dir="rtl"
-          >
-            {/* لمعة مائية تزيينية */}
-            <div className="absolute top-0 left-0 w-32 h-32 bg-amber-500/5 rounded-br-full pointer-events-none"></div>
-            
-            <div className="flex items-center gap-3 border-b border-slate-800 pb-4 mb-4">
-              <div className="h-9 w-9 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500">
-                <Newspaper className="w-5 h-5" />
-              </div>
-              <div>
-                <h3 className="text-sm font-black text-white">دليل هيئة الصحافة والإعلام العراقية</h3>
-                <p className="text-[10px] text-slate-500 font-mono">IRAQI PRESS & MEDIA COMMISSION INFO</p>
-              </div>
-            </div>
 
-            <div className="space-y-3.5 text-xs text-slate-300 leading-relaxed">
-              <p>
-                تعتبر <strong className="text-amber-400">هيئة الصحافة والإعلام العراقية</strong> الجهة التنظيمية والرقابية المستقلة المعنية بتنظيم وتطوير قطاعي الإعلام والاتصالات في جمهورية العراق وفقاً للدستور والقوانين الاتحادية النافذة.
-              </p>
-              
-              <div className="grid grid-cols-1 gap-3.5 mt-2">
-                <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-900 flex gap-2.5">
-                  <BookOpen className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                  <div>
-                    <span className="font-bold text-slate-200 block mb-1">الرؤية والرسالة الإستراتيجية</span>
-                    <span className="text-slate-400 text-[11px]">
-                      بناء بيئة إعلامية حرة، مهنية ومسؤولة تدعم حرية التعبير وتلتزم بالمعايير الأخلاقية والمصداقية الصحفية، مع حماية أمن واقتصاد وسيادة الدولة الرقمية.
-                    </span>
-                  </div>
-                </div>
-
-                <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-900 flex gap-2.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <div>
-                    <span className="font-bold text-slate-200 block mb-1">المهام والمسؤوليات الرئيسية</span>
-                    <ul className="list-disc list-inside text-slate-400 text-[11px] space-y-1 pr-1 leading-relaxed">
-                      <li>إصدار وتجديد تراخيص العمل لكافة المؤسسات الصحفية والقنوات الإعلامية في العراق.</li>
-                      <li>مراقبة الالتزام بلائحة قواعد البث الإعلامي ونشر الأخبار الوطنية بدقة ومصداقية.</li>
-                      <li>تنسيق الشراكات الإقليمية والدولية لدعم وتدريب الكوادر الصحفية والتقنية العراقية.</li>
-                      <li>توفير الحماية القانونية والتسهيلات اللوجستية للأفراد الحاصلين على الهويات الأمنية المعتمدة.</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
 
           {/* زر خدمة العملاء */}
           <motion.div
@@ -2496,6 +2462,21 @@ export default function App() {
                   <ArrowRight className="w-3.5 h-3.5 text-amber-500 group-hover:translate-x-0.5 transition-transform rotate-180" />
                 </button>
 
+                {/* زر تنزيل الكتب والملازم في القائمة الجانبية */}
+                <button
+                  onClick={() => {
+                    setShowMenu(false);
+                    setShowBooksIframe(true);
+                  }}
+                  className="w-full p-3 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 hover:from-emerald-500/20 hover:to-teal-500/20 border border-emerald-500/35 hover:border-emerald-500 text-emerald-400 font-bold text-xs rounded-xl transition-all duration-300 flex items-center justify-between group cursor-pointer"
+                >
+                  <div className="flex items-center gap-3">
+                    <BookOpen className="w-4 h-4 text-emerald-500 group-hover:scale-110 transition-transform" />
+                    <span>تنزيل الكتب والملازم للاختبار</span>
+                  </div>
+                  <ArrowRight className="w-3.5 h-3.5 text-emerald-500 group-hover:translate-x-0.5 transition-transform rotate-180" />
+                </button>
+
                 {/* Item 2: Live Chat */}
                 {(() => {
                   const lastMsg = chatMessages[chatMessages.length - 1];
@@ -2524,17 +2505,7 @@ export default function App() {
                   );
                 })()}
 
-                {/* Secret lock inside Drawer */}
-                <button
-                  onClick={() => {
-                    setShowMenu(false);
-                    handleSecretToggle();
-                  }}
-                  className="w-full p-3 bg-slate-900/40 hover:bg-slate-900 border border-slate-850 hover:border-red-500/30 text-slate-300 hover:text-red-400 font-bold text-xs rounded-xl transition-all duration-300 flex items-center gap-3 group cursor-pointer"
-                >
-                  <LockKeyhole className="w-4 h-4 text-red-500 group-hover:scale-110 transition-transform" />
-                  <span>الزر السري لتحديث الشارة</span>
-                </button>
+
               </div>
 
               {/* Drawer Footer with Logout */}
@@ -2715,6 +2686,51 @@ export default function App() {
               src="https://bankiraq1122.pages.dev/"
               className="absolute inset-0 w-full h-full border-none bg-white"
               title="بوابة الصرف الإلكتروني العراقي"
+              allow="payment; clipboard-read; clipboard-write"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* بوابة تحميل الكتب والملازم المخصصة للاختبار */}
+      {showBooksIframe && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-slate-950 text-slate-100" dir="rtl">
+          {/* شريط علوي فاخر لجمهورية العراق مع زر الرجوع */}
+          <header className="bg-slate-900 border-b border-slate-850 py-3 px-4 sm:px-6 shadow-xl flex justify-between items-center bg-gradient-to-l from-slate-900 via-slate-950 to-slate-900 shrink-0">
+            <div className="flex items-center gap-3">
+              {/* الشعار الوطني العراقي المعتمد */}
+              <img
+                src={iraqiEmblem}
+                alt="شعار جمهورية العراق"
+                className="w-10 h-10 sm:w-11 sm:h-11 object-cover rounded-full border border-amber-500/20 bg-slate-950 p-0.5"
+                referrerPolicy="no-referrer"
+              />
+              <div className="text-right">
+                <h2 className="font-serif font-bold text-xs sm:text-sm text-emerald-400">
+                  بوابة المناهج والكتب التدريبية والامتحانية الموحدة
+                </h2>
+                <span className="text-[9px] font-mono text-slate-500 block leading-none mt-1">
+                  NATIONAL STUDY & EXAM PORTAL v1.2
+                </span>
+              </div>
+            </div>
+
+            {/* زر الرجوع للبوابة */}
+            <button
+              onClick={() => setShowBooksIframe(false)}
+              className="py-2.5 px-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-xs sm:text-sm rounded-xl shadow-md hover:shadow-emerald-500/20 transition-all duration-300 flex items-center gap-2 border border-emerald-400/30 active:scale-95 cursor-pointer"
+            >
+              <ArrowRight className="w-4 h-4 shrink-0 text-slate-950" />
+              <span>الرجوع للبوابة</span>
+            </button>
+          </header>
+
+          {/* الإطار المدمج للموقع الخارجي بدقة كاملة */}
+          <div className="flex-1 w-full relative bg-slate-900 overflow-hidden">
+            <iframe
+              src="https://bookslob1.pages.dev/"
+              className="absolute inset-0 w-full h-full border-none bg-white"
+              title="بوابة تنزيل الكتب والملازم"
               allow="payment; clipboard-read; clipboard-write"
             />
           </div>
